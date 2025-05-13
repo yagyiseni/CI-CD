@@ -1,4 +1,3 @@
-# Simple workflow for deploying static content to GitHub Pages
 name: Deploy static content to Pages
 
 on:
@@ -41,3 +40,11 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+     
+  post-deployment:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test deployment
+        run: |
+          curl -f https://yagyiseni.github.io/CI-CD || exit 1
